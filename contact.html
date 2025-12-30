@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Contact - CvSU Online School Store</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="js/script.js"></script>
+</head>
+<body onload="loadTheme()">
+    <div class="container contact-container">
+        <div class="contact-header">
+            <h1>Get in Touch</h1>
+            <p>Have questions about your order or our products? We're here to help!</p>
+        </div>
+        
+        <div class="contact-grid">
+            <div class="contact-sidebar">
+                <div class="info-card">
+                    <div class="info-icon">📍</div>
+                    <div class="info-text">
+                        <h3>Our Location</h3>
+                        <p>CvSU Main Campus, Indang, Cavite 4122<br>Student Center Building</p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icon">📞</div>
+                    <div class="info-text">
+                        <h3>Phone & Mobile</h3>
+                        <p>(046) 415-0010<br>0917-123-4567</p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icon">✉️</div>
+                    <div class="info-text">
+                        <h3>Email Us</h3>
+                        <p>store@cvsu.edu.ph</p>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="info-icon">🕒</div>
+                    <div class="info-text">
+                        <h3>Business Hours</h3>
+                        <p>Mon-Fri: 8AM - 5PM<br>Sat: 9AM - 3PM</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-form-wrapper">
+                <form id="contactForm" onsubmit="handleContactSubmit(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" placeholder="Enter your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" placeholder="email@cvsu.edu.ph" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Subject</label>
+                        <select required>
+                            <option value="">Select a topic</option>
+                            <option value="order">Order Inquiry</option>
+                            <option value="stock">Product Availability</option>
+                            <option value="other">General Question</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Your Message</label>
+                        <textarea rows="5" placeholder="How can we help you?" required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-checkout">Send Message</button>
+                    <button type="reset" class="btn-clear-text">Clear Form</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="map-section">
+            <h2>Find Us on Campus</h2>
+            <div class="map-container">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3057.1107709210996!2d120.87852997383358!3d14.196218386851738!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33bd81e7a0fe7653%3A0xc55eb1a0b24cd16b!2sCavite%20State%20University%20-%20Main%20Campus!5e1!3m2!1sen!2sph!4v1767071296228!5m2!1sen!2sph" 
+                    width="100%" 
+                    height="450" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+            <div class="directions-buttons">
+                <a href="https://www.google.com/maps/dir//Cavite+State+University+-+Main+Campus,+Indang,+Cavite/@14.196218386851738,120.87852997383358,17z" 
+                   target="_blank" 
+                   class="btn-directions">
+                   🗺️ Get Directions
+                </a>
+                <a href="https://www.google.com/maps/place/Cavite+State+University+-+Main+Campus/@14.196218386851738,120.87852997383358,17z" 
+                   target="_blank" 
+                   class="btn-view-map">
+                   📍 View on Google Maps
+                </a>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>&copy; 2026 CvSU Online School Store. All rights reserved.</p>
+            <p><a href="home.html" target="mainFrame">Back to Home</a></p>
+        </div>
+    </div>
+</body>
+</html>

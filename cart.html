@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Shopping Cart - CvSU Online School Store</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="js/script.js"></script>
+  </head>
+  <body onload="displayCart()">
+    <div class="container cart-page-container">
+      <h1 class="page-title">Your Shopping Bag</h1>
+
+      <div class="cart-layout">
+        <div class="cart-main">
+          <div id="cartItems" class="cart-items-wrapper"></div>
+
+          <div id="emptyCart" class="empty-state" style="display: none">
+            <div class="empty-icon">🛒</div>
+            <p class="empty-cart-message">Your bag is empty!</p>
+            <a href="store.html" target="mainFrame" class="btn-primary"
+              >Back to Store</a
+            >
+          </div>
+        </div>
+
+        <div id="cartSummary" class="cart-sidebar" style="display: none">
+          <div class="summary-card">
+            <h2>Order Summary</h2>
+            <div class="summary-row">
+              <span>Subtotal</span>
+              <span id="subtotal">₱0.00</span>
+            </div>
+            <div class="summary-row">
+              <span>Shipping</span>
+              <span>₱50.00</span>
+            </div>
+            <div class="summary-row total-row">
+              <span>Total</span>
+              <span id="total">₱50.00</span>
+            </div>
+
+            <form
+              id="checkoutForm"
+              class="checkout-form"
+              onsubmit="processCheckout(event)"
+            >
+              <div class="form-group">
+                <label>Payment Method</label>
+                <select id="paymentMethod" required onchange="togglePaymentOptions()">
+                  <option value="">Select payment method</option>
+                  <option value="cash">Cash on Pickup</option>
+                  <option value="online">Online Payment</option>
+                </select>
+              </div>
+
+              <div id="onlinePaymentSection" class="payment-section" style="display: none;">
+                <h4>Online Payment Details</h4>
+                <div class="form-group">
+                  <label>Card Number</label>
+                  <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19">
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>Expiry Date</label>
+                    <input type="text" id="expiryDate" placeholder="MM/YY" maxlength="5">
+                  </div>
+                  <div class="form-group">
+                    <label>CVV</label>
+                    <input type="text" id="cvv" placeholder="123" maxlength="3">
+                  </div>
+                </div>
+              </div>
+
+              <div class="terms-container">
+                <input type="checkbox" id="agreeTerms" required />
+                <label for="agreeTerms">
+                  I agree to the <a href="#" onclick="showTerms()" style="color: var(--primary-green); text-decoration: underline;">terms and conditions</a>
+                </label>
+              </div>
+
+              <button type="submit" class="btn-checkout">Place Order</button>
+              <button
+                type="button"
+                onclick="clearCart()"
+                class="btn-clear-text"
+              >
+                Clear Shopping Bag
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Order Confirmation Modal -->
+    <div id="orderModal" class="modal" style="display: none;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Order Confirmation</h2>
+          <span class="close" onclick="closeOrder()">&times;</span>
+        </div>
+        <div class="modal-body" style="text-align: center;">
+          <p>Your order has been placed successfully!</p>
+          <div id="orderDetails" class="order-summary"></div>
+          <div class="download-buttons">
+            <button onclick="downloadPDF()" class="btn-checkout" style="margin: 10px;">Download Receipt (PDF)</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Terms and Conditions Modal -->
+    <div id="termsModal" class="modal" style="display: none;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Terms and Conditions</h2>
+          <span class="close" onclick="closeTerms()">&times;</span>
+        </div>
+        <div class="modal-body">
+          <h3>PROTOTYPE WEBSITE DISCLAIMER</h3>
+          <p><strong>This is a prototype website and NOT the official online store of Cavite State University.</strong></p>
+          
+          <h4>Important Notice:</h4>
+          <ul>
+            <li>This website is created for educational and demonstration purposes only</li>
+            <li>No actual transactions or purchases will be processed</li>
+            <li>This is not affiliated with or endorsed by Cavite State University</li>
+            <li>All products, prices, and services shown are fictional</li>
+            <li>No real orders will be fulfilled or delivered</li>
+          </ul>
+          
+          <h4>By using this prototype website, you acknowledge that:</h4>
+          <ul>
+            <li>You understand this is a demonstration project</li>
+            <li>No real financial transactions will occur</li>
+            <li>Your data is used only for testing purposes</li>
+            <li>This website does not represent CvSU's official services</li>
+          </ul>
+          
+          <p><em>For official CvSU services and information, please visit the university's official website.</em></p>
+        </div>
+        <div class="modal-footer">
+          <button onclick="closeTerms()" class="btn-checkout">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function showTerms() {
+        document.getElementById('termsModal').style.display = 'block';
+      }
+      
+      function closeTerms() {
+        document.getElementById('termsModal').style.display = 'none';
+      }
+      
+      function togglePaymentOptions() {
+        const paymentMethod = document.getElementById('paymentMethod').value;
+        const onlineSection = document.getElementById('onlinePaymentSection');
+        
+        if (paymentMethod === 'online') {
+          onlineSection.style.display = 'block';
+          document.getElementById('cardNumber').required = true;
+          document.getElementById('expiryDate').required = true;
+          document.getElementById('cvv').required = true;
+        } else {
+          onlineSection.style.display = 'none';
+          document.getElementById('cardNumber').required = false;
+          document.getElementById('expiryDate').required = false;
+          document.getElementById('cvv').required = false;
+        }
+      }
+      
+      function closeOrder() {
+        document.getElementById('orderModal').style.display = 'none';
+      }
+      
+      function downloadPDF() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        
+        const currentStudent = JSON.parse(sessionStorage.getItem('currentStudent') || 'null');
+        const cart = getCart();
+        const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        const total = subtotal + 50;
+        const orderId = 'ORD-' + Date.now();
+        
+        doc.setFontSize(20);
+        doc.setTextColor(27, 101, 27);
+        doc.text('CvSU Online Store', 20, 20);
+        doc.text('Order Receipt', 20, 30);
+        
+        doc.setFontSize(10);
+        doc.setTextColor(255, 0, 0);
+        doc.text('PROTOTYPE WEBSITE - NOT OFFICIAL CvSU STORE', 20, 40);
+        
+        doc.setFontSize(12);
+        doc.setTextColor(0, 0, 0);
+        doc.text(`Order ID: ${orderId}`, 20, 55);
+        doc.text(`Date: ${new Date().toLocaleString()}`, 20, 65);
+        doc.text(`Student: ${currentStudent.name}`, 20, 75);
+        doc.text(`Email: ${currentStudent.email}`, 20, 85);
+        
+        doc.text('Items Ordered:', 20, 105);
+        let yPos = 115;
+        cart.forEach(item => {
+          doc.text(`• ${item.name} x${item.quantity} - ₱${(item.price * item.quantity).toFixed(2)}`, 25, yPos);
+          yPos += 10;
+        });
+        
+        yPos += 10;
+        doc.text(`Subtotal: ₱${subtotal.toFixed(2)}`, 20, yPos);
+        doc.text(`Shipping: ₱50.00`, 20, yPos + 10);
+        doc.setFontSize(14);
+        doc.text(`Total: ₱${total.toFixed(2)}`, 20, yPos + 25);
+        
+        doc.setFontSize(8);
+        doc.setTextColor(128, 128, 128);
+        doc.text('Pickup Location: CvSU Main Campus - Student Center Building', 20, 280);
+        doc.text('This is a prototype system for demonstration purposes only', 20, 290);
+        
+        doc.save(`cvsu-store-receipt-${orderId}.pdf`);
+      }
+      
+      // Format card number input
+      document.addEventListener('DOMContentLoaded', function() {
+        const cardNumberInput = document.getElementById('cardNumber');
+        if (cardNumberInput) {
+          cardNumberInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\s/g, '').replace(/[^0-9]/gi, '');
+            let formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
+            e.target.value = formattedValue;
+          });
+        }
+        
+        const expiryInput = document.getElementById('expiryDate');
+        if (expiryInput) {
+          expiryInput.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length >= 2) {
+              value = value.substring(0,2) + '/' + value.substring(2,4);
+            }
+            e.target.value = value;
+          });
+        }
+      });
+      
+      // Close modal when clicking outside
+      window.onclick = function(event) {
+        const termsModal = document.getElementById('termsModal');
+        const orderModal = document.getElementById('orderModal');
+        if (event.target == termsModal) {
+          termsModal.style.display = 'none';
+        }
+        if (event.target == orderModal) {
+          orderModal.style.display = 'none';
+        }
+      }
+    </script>
+  </body>
+</html>

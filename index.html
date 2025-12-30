@@ -1,0 +1,23 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">
+<html>
+<head>
+    <title>CvSU Online School Store</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script>
+        // Check if user is authenticated
+        const currentStudent = JSON.parse(sessionStorage.getItem('currentStudent') || 'null');
+        if (!currentStudent || !currentStudent.verified) {
+            window.location.href = 'login.html';
+        }
+    </script>
+</head>
+<frameset rows="100px,*" border="0">
+    <frame src="nav.html" name="navFrame" noresize="noresize" scrolling="no">
+    <frame src="home.html" name="mainFrame">
+    <noframes>
+        <body>
+            <p>Your browser does not support frames. Please visit <a href="home.html">our homepage</a>.</p>
+        </body>
+    </noframes>
+</frameset>
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Store - CvSU Online School Store</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script src="js/script.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>CvSU Store</h1>
+        <p>Browse our collection of school essentials and merchandise</p>
+
+        <!-- Filter Section -->
+        <div class="filter-section">
+            <select id="categoryFilter" class="filter-select" onchange="filterProducts()">
+                <option value="all">All Categories</option>
+                <option value="books">Books & Textbooks</option>
+                <option value="uniforms">School Uniforms</option>
+                <option value="supplies">School Supplies</option>
+                <option value="merchandise">CvSU Merchandise</option>
+            </select>
+
+            <select id="priceFilter" class="filter-select" onchange="filterProducts()">
+                <option value="all">All Prices</option>
+                <option value="0-100">₱0 - ₱100</option>
+                <option value="100-300">₱100 - ₱300</option>
+                <option value="300-500">₱300 - ₱500</option>
+                <option value="500-1000">₱500 - ₱1000</option>
+            </select>
+
+            <select id="sortFilter" class="filter-select" onchange="filterProducts()">
+                <option value="default">Sort By</option>
+                <option value="name-asc">Name (A-Z)</option>
+                <option value="name-desc">Name (Z-A)</option>
+                <option value="price-asc">Price (Low to High)</option>
+                <option value="price-desc">Price (High to Low)</option>
+            </select>
+        </div>
+
+        <div class="no-results" id="noResults">
+            No products found matching your filters.
+        </div>
+
+        <div class="content-section">
+            <!-- Books & Textbooks -->
+            <div class="products-grid">
+                <div class="product-card" data-category="books" data-price="850">
+                    <div class="product-image-container">
+                        <img src="photos/engr.jpg" alt="Engineering Book" class="product-card-image">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Engineering Mathematics</h3>
+                        <p class="product-description">Illustrated History from Acient Craft to Modern Technology</p>
+                        <div class="product-footer">
+                            <span class="product-price">₱850.00</span>
+                            <button onclick="addToCart('Engineering Mathematics', 850)" class="btn-add-card">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="books" data-price="650">
+                    <div class="product-image-container">
+                        <img src="photos/bio.jpg" alt="Science Book" class="product-card-image">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">General Biology</h3>
+                        <p class="product-description">Comprehensive biology textbook</p>
+                        <div class="product-footer">
+                            <span class="product-price">₱650.00</span>
+                            <button onclick="addToCart('General Biology', 650)" class="btn-add-card">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="books" data-price="500">
+                    <div class="product-image-container">
+                        <img src="photos/purpo.jpg" alt="English Book" class="product-card-image">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Communication Skills</h3>
+                        <p class="product-description">English and communication handbook</p>
+                        <div class="product-footer">
+                            <span class="product-price">₱500.00</span>
+                            <button onclick="addToCart('Communication Skills', 500)" class="btn-add-card">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- School Uniforms -->
+                <div class="product-card" data-category="uniforms" data-price="450">
+                    <div class="product-image-container">
+                        <img src="photos/uniff.jfif" alt="PE Uniform" class="product-card-image">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">CvSU Female Uniform Set</h3>
+                        <p class="product-description">Complete Female Uniform (shirt & pants)</p>
+                        <div class="product-footer">
+                            <span class="product-price">₱450.00</span>
+                            <button onclick="addToCart('PE Uniform Set', 450)" class="btn-add-card">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="uniforms" data-price="350">
+                    <div class="product-image-container">
+                        <img src="photos/lab_gown.jpg" alt="Lab Gown" class="product-card-image">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Laboratory Gown</h3>
+                        <p class="product-description">White lab gown for science subjects</p>
+                        <div class="product-footer">
+                            <span class="product-price">₱350.00</span>
+                            <button onclick="addToCart('Laboratory Gown', 350)" class="btn-add-card">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="uniforms" data-price="80">
+                    <div class="product-image-container">
+                        <img src="photos/id.jpg" alt="ID Lace" class="product-card-image">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">CvSU ID Lace</h3>
+                        <p class="product-description">Official green lanyard with CvSU logo</p>
+                        <div class="product-footer">
+                            <span class="product-price">₱80.00</span>
+                            <button onclick="addToCart('ID Lace', 80)" class="btn-add-card">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- School Supplies -->
+                <div class="product-card" data-category="supplies" data-price="45">
+                    <div class="product-image-container">
+                        <img src="photos/notebook.jpg" alt="Notebook" class="product-card-image">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Spiral Notebook</h3>
+                        <p class="product-description">100 pages, college-ruled</p>
+                        <div class="product-footer">
+                            <span class="product-price">₱45.00</span>
+                            <button onclick="addToCart('Spiral Notebook', 45)" class="btn-add-card">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="supplies" data-price="55">
+                    <div class="product-image-container">
+                        <img src="photos/ballpen.jfif" alt="Pens" class="product-card-image">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Ballpen Set (4pcs)</h3>
+                        <p class="product-description">Blue and black ballpens</p>
+                        <div class="product-footer">
+                            <span class="product-price">₱55.00</span>
+                            <button onclick="addToCart('Ballpen Set', 55)" class="btn-add-card">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="supplies" data-price="85">
+                    <div class="product-image-container">
+                        <img src="images/supply3.jpg" alt="Folder" class="product-card-image">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Expanding Folder</h3>
+                        <p class="product-description">13-pocket organizer folder</p>
+                        <div class="product-footer">
+                            <span class="product-price">₱85.00</span>
+                            <button onclick="addToCart('Expanding Folder', 85)" class="btn-add-card">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CvSU Merchandise -->
+                <div class="product-card" data-category="merchandise" data-price="300">
+                    <div class="product-image-container">
+                        <img src="images/merch1.jpg" alt="T-shirt" class="product-card-image">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">CvSU T-Shirt</h3>
+                        <p class="product-description">Cotton t-shirt with CvSU logo (sizes S-XL)</p>
+                        <div class="product-footer">
+                            <span class="product-price">₱300.00</span>
+                            <button onclick="addToCart('CvSU T-Shirt', 300)" class="btn-add-card">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="merchandise" data-price="180">
+                    <div class="product-image-container">
+                        <img src="photos/mug.jpg" alt="Mug" class="product-card-image">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">CvSU Coffee Mug</h3>
+                        <p class="product-description">Ceramic mug with university seal</p>
+                        <div class="product-footer">
+                            <span class="product-price">₱180.00</span>
+                            <button onclick="addToCart('Coffee Mug', 180)" class="btn-add-card">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="merchandise" data-price="250">
+                    <div class="product-image-container">
+                        <img src="photos/cap.jpg" alt="Cap" class="product-card-image">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">CvSU Baseball Cap</h3>
+                        <p class="product-description">Adjustable cap with embroidered logo</p>
+                        <div class="product-footer">
+                            <span class="product-price">₱250.00</span>
+                            <button onclick="addToCart('Baseball Cap', 250)" class="btn-add-card">Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>&copy; 2026 CvSU Online School Store. All rights reserved.</p>
+            <p><a href="home.html" target="mainFrame">Back to Home</a></p>
+        </div>
+    </div>
+</body>
+</html>
